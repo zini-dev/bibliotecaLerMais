@@ -21,14 +21,14 @@ const clienteController = {
             const { idCliente } = req.query;
 
             if (idCliente) {
-                if (idCliente != 36) {
+                if (idCliente.length != 36) {
                     return res.status(400).json({ error: `Id do Cliente é inválido` });
                 }
                 const cliente = await clienteModel.buscarUm(idCliente);
-                res.status(200).json(cliente);
+                return res.status(200).json(cliente);
             }
 
-            const clientes = await clienteModel.buscarTodos(idCliente);
+            const clientes = await clienteModel.buscarTodos();
 
             res.status(200).json(clientes)
 

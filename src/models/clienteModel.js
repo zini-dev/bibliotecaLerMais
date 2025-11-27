@@ -75,6 +75,7 @@ const clienteModel = {
      * @returns {Promise<void>} - Não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro caso a inserção falhe
      */
+    
     inserirCliente: async (nomeCliente, emailCliente, senhaCliente) => {
         try {
             const pool = await getConnection();

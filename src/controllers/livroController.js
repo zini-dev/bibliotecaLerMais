@@ -20,15 +20,15 @@ const livroController = {
             const { idLivro } = req.query;
 
             if (idLivro) {
-                if (idLivro != 36) {
-                    return res.status(400).json({ error: `Id o livros é inválido` })
+                if (idLivro.length != 36) {
+                    return res.status(400).json({ error: `Id do livro é inválido` })
                 }
                 const livro = await livroModel.buscarUm(idLivro);
 
-                res.status(200).json({ livro })
+                return res.status(200).json(livro)
             }
 
-            const livros = await livroModel.buscarTodos(idLivro);
+            const livros = await livroModel.buscarTodos();
             res.status(200).json(livros);
 
         } catch (error) {
