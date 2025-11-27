@@ -48,7 +48,7 @@ const livroModel = {
 
             const querySQL = `
                 INSERT INTO Livros (tituloLivro, anoPublicacaoLivro, qtdExemplaresLivro, nomeAutorLivro)
-                VALUE (@tituloLivro, @anoPublicacaoLivro, @qtdExemplaresLivro, @nomeAutorLivro)
+                VALUES (@tituloLivro, @anoPublicacaoLivro, @qtdExemplaresLivro, @nomeAutorLivro)
             `;
 
             await pool.request()
