@@ -1,3 +1,4 @@
+const { pool } = require("mssql");
 const { clienteModel } = require("../models/clienteModel");
 
 const clienteController = {
@@ -20,6 +21,23 @@ const clienteController = {
         } catch (error) {
             console.error('Erro ao listar clientes:', error);
             res.status(500).json({ error: `Erro interno no servidor ao buscar clientes.` })
+        }
+    },
+    criarCliente: async (req, res) => {
+        try {
+            const { nomeCliente, emailCliente, senhaCliente } = req.body;
+
+            if (nomeCliente == undefined || emailCliente == undefined || senhaCliente == undefined || nomeCliente == "" || emailCliente == "" || senhaCliente == "") {
+                return res.status(400).json({ error: `Campos obrigatórios não preenchidos` })
+            }
+
+            await clienteModel.inserirCliente(nomeCliente, emailCliente, senhaCliente)
+
+            res.status(201).json({message: "Cliente cadastrado com sucesso"})
+
+        } catch (error) {
+            console.error('Erro ao cadastrar cliente:', error);
+            res.status(500).json({ error: `Erro ao cadastrar cliente.` })
         }
     }
 }

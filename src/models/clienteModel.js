@@ -33,6 +33,7 @@ const clienteModel = {
 
             const result = await pool.request()
                 .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .query(querySQL)
 
             return result.recordset;
 
@@ -43,6 +44,27 @@ const clienteModel = {
 
         }
 
+    },
+
+    inserirCliente: async (nomeCliente, emailCliente, senhaCliente) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+            INSERT INTO Clientes (nomeCliente, emailCliente, senhaCliente)
+            VALUES (@nomeCliente, @emailCliente, @senhaCliente)
+        `;
+
+            await pool.request()
+                .input("nomeCliente", sql.VarChar(100), nomeCliente)
+                .input("emailCliente", sql.VarChar(100), emailCliente)
+                .input("senhaCliente", sql.VarChar(100), senhaCliente)
+                .query(querySQL);
+
+        } catch (error) {
+            console.error("Erro ao inserir cliente:", error)
+            throw error;
+        }
     }
 }
 

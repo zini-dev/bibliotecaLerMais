@@ -33,6 +33,7 @@ const livroModel = {
 
             const result = await pool.request()
                 .input("idLivro", sql.UniqueIdentifier, idLivro)
+                    .query(querySQL)
 
             return result.recordset;
 
@@ -59,7 +60,7 @@ const livroModel = {
                     .query(querySQL);
 
         } catch (error) {
-            console.error("Erro ao inserir livro:", error)
+            console.error("Erro ao inserir livro:", error);
             throw error;
         }
     }
