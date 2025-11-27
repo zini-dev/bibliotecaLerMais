@@ -40,6 +40,28 @@ const livroModel = {
             console.error("Erro ao buscar livro", error);
             throw error;
         }
+    },
+
+    inserirLivro: async (tituloLivro, anoPublicacaoLivro, qtdExemplaresLivro, nomeAutorLivro) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+                INSERT INTO Livros (tituloLivro, anoPublicacaoLivro, qtdExemplaresLivro, nomeAutorLivro)
+                VALUE (@tituloLivro, @anoPublicacaoLivro, @qtdExemplaresLivro, @nomeAutorLivro)
+            `;
+
+            await pool.request()
+                .input("tituloLivro", sql.VarChar(100), tituloLivro)
+                .input("anoPublicacaoLivro", sql.Int, anoPublicacaoLivro)
+                .input("qtdExemplaresLivro", sql.Int, qtdExemplaresLivro)
+                .input("nomeAutorLivro", sql.VarChar(100), nomeAutorLivro)
+                    .query(querySQL);
+
+        } catch (error) {
+            console.error("Erro ao inserir livro:", error)
+            throw error;
+        }
     }
 };
 

@@ -22,6 +22,10 @@ const livroController = {
             console.error('Erro ao listar livros:', error);
             res.status(500).json({ error: `Erro interno no servidor ao buscar livros.` })
         }
+    },
+
+    criarLivro: async (req,res) => {
+        const {tituloLivro, anoPublicacaoLivro, qtdExemplaresLivro, nomeAutorLivro} = req.body;
     }
 
 };
